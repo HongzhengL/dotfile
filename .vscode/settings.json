@@ -1,0 +1,89 @@
+{
+    "editor.rulers": [120],
+    "editor.formatOnSave": true,
+    "editor.tabSize": 4,
+    "clang-format.style": "file",
+    "editor.detectIndentation": false,
+    "editor.occurrencesHighlight": "multiFile",
+    "files.autoSave": "afterDelay",
+    "git.enableSmartCommit": true,
+    "git.autofetch": true,
+    "C_Cpp.clang_format_style": "{BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 120, AllowShortFunctionsOnASingleLine: All}",
+    "C_Cpp.clang_format_fallbackStyle": "{BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 120, AllowShortFunctionsOnASingleLine: All}",
+    "cmake.showOptionsMovedNotification": false,
+    "makefile.configureOnOpen": true,
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false,
+        "c": false,
+        "json": false
+    },
+    "cmake.pinnedCommands": [
+        "workbench.action.tasks.configureTaskRunner",
+        "workbench.action.tasks.runTask"
+    ],
+    // >>>>>>>>> Vim Settings
+    "vim.useCtrlKeys": true,
+    "vim.useSystemClipboard": true,
+    "vim.enableNeovim": true,
+    "vim.neovimPath": "/opt/nvim-macos-arm64/bin/nvim",
+    "vim.neovimConfigPath": "/Users/roymanclee/.config/nvim/init.lua",
+    "vim.leader": "<space>",
+    // <<<<<<<<<< Vim Settings
+    "redhat.telemetry.enabled": false,
+    "C_Cpp.intelliSenseUpdateDelay": 500,
+    "C_Cpp.default.cppStandard": "c++23",
+    "C_Cpp.default.cStandard": "c23",
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "prettier.bracketSameLine": true,
+    "prettier.tabWidth": 4,
+    "prettier.trailingComma": "all",
+    "files.simpleDialog.enable": true,
+    "explorer.confirmDragAndDrop": false,
+    "resmon.disk.format": "Remaining",
+    "resmon.show.battery": false,
+    "workbench.editorLargeFileConfirmation": 100,
+    "editor.formatOnPaste": true,
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+    "vscode-neovim.neovimExecutablePaths.linux": "/usr/local/bin/nvim",
+    "vscode-neovim.neovimExecutablePaths.darwin": "/usr/local/bin/nvim",
+    "vscode-neovim.neovimInitVimPaths.linux": "$HOME/.config/nvim/init.lua",
+    "vscode-neovim.neovimInitVimPaths.darwin": "$HOME/.config/nvim/init.lua",
+    "settingsSync.ignoredExtensions": ["extr0py.vscode-relative-line-numbers"],
+    "editor.cursorBlinking": "smooth",
+    "editor.cursorSmoothCaretAnimation": "on",
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "git.openRepositoryInParentFolders": "always",
+    "vscode-neovim.revealCursorScrollLine": true,
+    "vs-kubernetes": {
+        "vscode-kubernetes.helm-path-mac": "/Users/roymanclee/.vs-kubernetes/tools/helm/darwin-arm64/helm",
+        "vscode-kubernetes.minikube-path-mac": "/Users/roymanclee/.vs-kubernetes/tools/minikube/darwin-arm64/minikube"
+    },
+    "gitlens.ai.model": "vscode",
+    "gitlens.ai.vscode.model": "copilot:gpt-4o",
+    // ****************Terminal Settings*****************
+    "terminal.integrated.fontFamily": "Hack Nerd Font Mono",
+    "terminal.integrated.fontSize": 14,
+    // "terminal.integrated.cursorStyle": "line",
+    "terminal.integrated.lineHeight": 1.2,
+    "editor.minimap.enabled": false,
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+}
+
