@@ -115,44 +115,16 @@ alias mc="make clean"
 alias ml="make lint"
 alias mr="make run"
 alias mz="make zip"
+alias n="ninja"
+alias nc="ninja clean"
 alias c="clear"
-
 alias mv="mv -i"
-
-export PATH="$PATH:/opt/nvim-linux64/bin"
-
 alias t="tmux"
 alias ta="tmux attach"
-
-# use gcc container to make
-alias dm="docker run --rm -v "$(pwd)":/usr/src/myapp -w /usr/src/myapp gcc:latest make"
-
-alias gcc="gcc -Wall -Wextra -Wpedantic -Wconversion"
-alias gcc-12="gcc-12 -Wall -Wextra -Wpedantic -Wconversion"
-alias g++="g++ -Wall -Wextra -Wpedantic -Wconversion"
-alias g++-12="g++-12 -Wall -Wextra -Wpedantic -Wconversion"
-
-upload() {
-    # Check if the source file exists
-    if [[ -z "$1" ]]; then
-        echo "Usage: upload <source_file>"
-        return 1
-    fi
-
-    # Define the target directory
-    local target_dir="/opt/1panel/apps/openresty/openresty/www/sites/sh.hongzhengli.com/index"
-
-    # Check if the target is a directory
-    if [[ -d "$target_dir" ]]; then
-        # Copy file into the directory
-        sudo cp -r "$1" "$target_dir/"
-    else
-        # Overwrite the file if the target is not a directory
-        sudo cp -r "$1" "$target_dir"
-    fi
-
-    echo "File uploaded successfully!"
-}
+alias cc="cc -Wall -Wextra -Wpedantic -Wconversion"
+alias c++="c++ -Wall -Wextra -Wpedantic -Wconversion"
+alias v="nvim"
+alias ghcs="gh copilot suggest"
 
 cf () {
     extensions=("*.cpp" "*.c" "*.cc" "*.cxx" "*.h" "*.hpp" "*.hh")
@@ -171,14 +143,6 @@ poweroff() {
     fi
 }
 
-export PATH=$PATH:/usr/local/go/bin
-
-alias mp="multipass"
-
-alias n="npm"
-alias v="nvim"
-
-export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
@@ -189,12 +153,13 @@ source <(fzf --zsh)
 
 eval "$(zoxide init zsh)"
 
-alias ghcs="gh copilot suggest"
+export PATH="$PATH:/opt/nvim-linux64/bin"
+export PATH=$PATH:/usr/local/go/bin
 
+export NVM_DIR="$HOME/.nvm"
 #### vcpkg
 export VCPKG_ROOT=/opt/vcpkg
 export CMAKE_TOOLCHAIN_FILE=/opt/vcpkg/scripts/buildsystems/vcpkg.cmake
-
 #### Conan
 export PATH=$PATH:/home/spring-2025/.local/bin
 
