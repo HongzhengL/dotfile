@@ -1,0 +1,23 @@
+[user]
+    name = Hongzheng Li
+    email = wasd2hjkl@gmail.com
+
+[core]
+    whitespace = error
+    preloadindex = true
+    editor = nvim
+
+[init]
+    defaultBranch = main
+
+[status]
+    branch = true
+    showStash = true
+    showUntrackedFiles = all
+
+[diff]
+    renames = copies
+    interHunkContext = 10
+
+[interactive]
+    singlekey = true

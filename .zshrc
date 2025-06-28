@@ -1,65 +1,128 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+# Start configuration added by Zim install {{{
+#
+# User configuration sourced by interactive shells
+#
 
-# Path to your Oh My Zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+# -----------------
+# Zsh configuration
+# -----------------
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time Oh My Zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+#
+# History
+#
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# Remove older command from the history if a duplicate is to be added.
+setopt HIST_IGNORE_ALL_DUPS
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+#
+# Input/output
+#
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+# Set editor default keymap to emacs (`-e`) or vi (`-v`)
+bindkey -e
 
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+# Prompt for spelling correction of commands.
+#setopt CORRECT
 
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
+# Customize spelling correction prompt.
+#SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
 
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
+# Remove path separator from WORDCHARS.
+WORDCHARS=${WORDCHARS//[\/]}
 
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
+# -----------------
+# Zim configuration
+# -----------------
 
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+# Use degit instead of git as the default tool to install and update modules.
+#zstyle ':zim:zmodule' use 'degit'
 
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+# --------------------
+# Module configuration
+# --------------------
 
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
+#
+# git
+#
 
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+# Set a custom prefix for the generated aliases. The default prefix is 'G'.
+#zstyle ':zim:git' aliases-prefix 'g'
 
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
+#
+# input
+#
+
+# Append `../` to your input for each `.` you type after an initial `..`
+#zstyle ':zim:input' double-dot-expand yes
+
+#
+# termtitle
+#
+
+# Set a custom terminal title format using prompt expansion escape sequences.
+# See http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html#Simple-Prompt-Escapes
+# If none is provided, the default '%n@%m: %~' is used.
+#zstyle ':zim:termtitle' format '%1~'
+
+#
+# zsh-autosuggestions
+#
+
+# Disable automatic widget re-binding on each precmd. This can be set when
+# zsh-users/zsh-autosuggestions is the last module in your ~/.zimrc.
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+
+# Customize the style that the suggestions are shown with.
+# See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
+#ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
+
+#
+# zsh-syntax-highlighting
+#
+
+# Set what highlighters will be used.
+# See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+
+# Customize the main highlighter styles.
+# See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md#how-to-tweak-it
+#typeset -A ZSH_HIGHLIGHT_STYLES
+#ZSH_HIGHLIGHT_STYLES[comment]='fg=242'
+
+# ------------------
+# Initialize modules
+# ------------------
+
+ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
+# Download zimfw plugin manager if missing.
+if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
+  if (( ${+commands[curl]} )); then
+    curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
+        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+  else
+    mkdir -p ${ZIM_HOME} && wget -nv -O ${ZIM_HOME}/zimfw.zsh \
+        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+  fi
+fi
+# Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
+if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZIM_CONFIG_FILE:-${ZDOTDIR:-${HOME}}/.zimrc} ]]; then
+  source ${ZIM_HOME}/zimfw.zsh init
+fi
+# Initialize modules.
+source ${ZIM_HOME}/init.zsh
+
+# ------------------------------
+# Post-init module configuration
+# ------------------------------
+
+#
+# zsh-history-search
+#
+bindkey "${terminfo[kcuu1]}" history-search-backward   # Up  arrow
+bindkey "${terminfo[kcud1]}" history-search-forward    # Down arrow
+
+
+##### History
 HIST_STAMPS="mm/dd/yyyy"
 HISTSIZE=100000      # Number of commands stored in memory
 SAVEHIST=100000      # Number of commands saved to the history file
@@ -69,62 +132,47 @@ setopt appendhistory            # Append history instead of overwriting
 setopt sharehistory             # Share history across multiple sessions
 setopt incappendhistory         # Write history incrementally to the file
 
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='nvim'
-fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch $(uname -m)"
-
-# Set personal aliases, overriding those provided by Oh My Zsh libs,
-# plugins, and themes. Aliases can be placed here, though Oh My Zsh
-# users are encouraged to define aliases within a top-level file in
-# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
-# - $ZSH_CUSTOM/aliases.zsh
-# - $ZSH_CUSTOM/macos.zsh
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
+####### alias
+alias c="clear"
 alias m="make -j"
 alias mc="make clean"
 alias ml="make lint"
 alias mr="make run"
-alias mz="make zip"
-alias n="ninja"
-alias nc="ninja clean"
-alias c="clear"
 alias mv="mv -i"
+alias mz="make zip"
+alias n="npm"
 alias t="tmux"
 alias ta="tmux attach"
-alias cc="cc -Wall -Wextra -Wpedantic -Wconversion"
-alias c++="c++ -Wall -Wextra -Wpedantic -Wconversion"
 alias v="nvim"
-alias ghcs="gh copilot suggest"
+alias n="ninja"
+alias nc="ninja clean"
+
+#### alias inherted from omz
+alias gl="git pull"
+alias gp="git push"
+alias gb="git branch"
+alias grv="git remote -v"
+alias gcl="git clone"
+alias ga="git add"
+alias gaa="git add -A"
+alias gc="git commit --verbose"
+alias gsw="git switch"
+alias gco="git checkout"
+alias glog='git log --oneline --decorate --graph'
+alias gd="git diff"
+alias gst="git status"
+alias gsta='git stash push'
+alias grs="git restore"
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+function -() {
+  cd - "$@"
+}
+
 
 cf () {
     extensions=("*.cpp" "*.c" "*.cc" "*.cxx" "*.h" "*.hpp" "*.hh")
@@ -132,34 +180,4 @@ cf () {
         find . -type f -name "$ext" -exec clang-format -i {} +
     done
 }
-
-poweroff() {
-    echo "Are you sure you want to power off? (yes/no)"
-    read -r answer
-    if [[ "$answer" == "yes" ]]; then
-        sudo /sbin/poweroff
-    else
-        echo "Poweroff canceled."
-    fi
-}
-
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-source <(fzf --zsh)
-
-eval "$(zoxide init zsh)"
-
-export PATH="$PATH:/opt/nvim-linux64/bin"
-export PATH=$PATH:/usr/local/go/bin
-
-export NVM_DIR="$HOME/.nvm"
-#### vcpkg
-export VCPKG_ROOT=/opt/vcpkg
-export CMAKE_TOOLCHAIN_FILE=/opt/vcpkg/scripts/buildsystems/vcpkg.cmake
-#### Conan
-export PATH=$PATH:/home/spring-2025/.local/bin
 
